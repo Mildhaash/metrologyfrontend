@@ -97,7 +97,7 @@ export default function InspectionsPage() {
         violations_summary: s.violations_summary as Scan["violations_summary"],
         location: s.location as Scan["location"],
         scanned_at: s.scanned_at as string,
-        violations: Array.isArray(s.violations) ? (s.violations as any[]).map((v) => ({
+        violations: Array.isArray(s.violations) ? (s.violations as Record<string, unknown>[]).map((v) => ({
           _id: (v._id as string) || "",
           scan_id: (v.scan_id as string) || "",
           rule_id: (v.rule_id as string) || "",

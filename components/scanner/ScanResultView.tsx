@@ -334,7 +334,6 @@ export default function ScanResultView({
   };
 
   const passedCount = checks.filter((c) => c.status === "pass").length;
-  const failedCount = checks.length - passedCount;
   const isCompliant = validation.overall_status === "compliant";
   const compliancePercent = checks.length === 0 ? 0 : Math.round((passedCount / checks.length) * 100);
 

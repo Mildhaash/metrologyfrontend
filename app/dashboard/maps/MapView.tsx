@@ -7,12 +7,14 @@ import "leaflet/dist/leaflet.css";
 interface MapInspection {
   id: string;
   product: string;
+  manufacturer: string;
   lat: number;
   lng: number;
   status: "compliant" | "non-compliant";
   violations: number;
   maxSeverity: string;
   time: string;
+  address: string | null;
 }
 
 const SEVERITY_COLORS: Record<string, string> = {

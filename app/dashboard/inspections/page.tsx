@@ -126,7 +126,7 @@ export default function InspectionsPage() {
   const updateViolation = async (
     scanId: string,
     violationId: string,
-    updates: { resolution_status?: string; assigned_to?: string; due_date?: string; resolution_notes?: string }
+    updates: { resolution_status?: Violation["resolution_status"]; assigned_to?: string; due_date?: string; resolution_notes?: string }
   ) => {
     setUpdatingViolation(violationId);
     try {
@@ -413,7 +413,7 @@ function ViolationRow({
   onUpdate: (
     scanId: string,
     violationId: string,
-    updates: { resolution_status?: string; assigned_to?: string; due_date?: string; resolution_notes?: string }
+    updates: { resolution_status?: Violation["resolution_status"]; assigned_to?: string; due_date?: string; resolution_notes?: string }
   ) => Promise<void>;
   isUpdating: boolean;
   isSuccess: boolean;

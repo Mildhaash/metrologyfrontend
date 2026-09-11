@@ -12,6 +12,14 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        display: ["Sora", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
+        cursive: ["Caveat", "cursive"],
+      },
+      screens: {
+        xs: "480px",
+      },
     },
   },
   plugins: [],

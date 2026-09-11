@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Legal Metrology Compliance Checker — Frontend
+
+A Next.js 14 web application for scanning, verifying, and managing legal metrology compliance on product labels.
+
+## Features
+
+- **Image Scan** — Upload product label images for OCR-based compliance checking
+- **Realtime Scan** — Camera-based instant scanning with AR overlay
+- **Batch Scan** — Upload multiple labels at once
+- **Dashboard** — Overview of scans, violations, and compliance trends
+- **Inspections** — Manage and resolve compliance violations
+- **History** — Browse past scans with filtering
+- **Maps** — Geographic distribution of scans
+- **Reports** — Export compliance data as PDF, DOCX, or CSV
+
+## Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Next.js 14 (App Router) | Framework |
+| React 18 | UI library |
+| TypeScript 5 | Type safety |
+| Tailwind CSS 3.4 | Styling |
+| Recharts 3.10 | Charts & graphs |
+| Leaflet 1.9 | Map rendering |
+| Lucide React | Icons |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env.local
+```
+
+### Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_API_URL` | Backend API base URL | `http://localhost:8000/api` |
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Opens at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+frontend/
+├── app/
+│   ├── dashboard/          # Dashboard pages (inspections, history, maps, etc.)
+│   ├── guidelines/         # Legal metrology guidelines
+│   ├── scan/               # Scan result and batch scan pages
+│   ├── globals.css         # Global styles + Google Fonts
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Landing page
+├── components/
+│   ├── auth/               # Login/signup modal
+│   ├── scanner/            # Scan result view, camera scanner
+│   ├── ui/                 # Reusable UI components (GradeBadge, etc.)
+│   └── Navbar.tsx          # Navigation bar
+├── lib/
+│   └── api.ts              # API fetch helper with auth token
+├── public/                 # Static assets
+├── next.config.mjs
+├── tailwind.config.ts
+├── tsconfig.json
+└── package.json
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel (Recommended)
 
-## Deploy on Vercel
+1. Push this folder to a GitHub repository
+2. Import the repository in [Vercel](https://vercel.com)
+3. Set the environment variable:
+   - `NEXT_PUBLIC_API_URL` → `https://your-backend.up.railway.app/api`
+4. Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Private — Internal use only.

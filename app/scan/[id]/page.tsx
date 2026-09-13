@@ -76,7 +76,11 @@ function normalize(stored: Record<string, unknown>): NormalizedScan {
   const imageUrl =
     typeof stored["image_data_url"] === "string"
       ? (stored["image_data_url"] as string)
-      : null;
+      : typeof stored["image_url"] === "string" && stored["image_url"]
+        ? stored["image_url"].startsWith("http")
+          ? stored["image_url"] as string  // Cloudinary or absolute URL
+          : `${process.env.NEXT_PUBLIC_API_URL}/${stored["image_url"]}`  // Local filesystem path
+        : null;
 
   // Shape 1: test-scan response (has nested `validation`)
   if (stored["validation"] && typeof stored["validation"] === "object") {

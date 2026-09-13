@@ -19,7 +19,7 @@ interface Scan {
   _id: string;
   extracted_fields?: { commodity_name?: string; manufacturer_name?: string };
   overall_status: "compliant" | "non-compliant";
-  violations_summary?: { total?: number; critical?: number; major?: number; minor?: number };
+  violations_summary?: { total?: number; critical?: number; major?: number; minor?: number; total_checks?: number; passed?: number };
   location?: { lat: number; lng: number } | null;
   scanned_at: string;
 }
@@ -195,9 +195,9 @@ export default function HistoryPage() {
                   <div className="flex items-center gap-4 min-w-0 flex-1">
                     <GradeBadge
                       percent={
-                        scan.overall_status === "compliant" ? 100 :
-                        Math.round(((scan.violations_summary?.total || 1) - (scan.violations_summary?.critical || 0)) /
-                          Math.max(scan.violations_summary?.total || 1, 1) * 100)
+                        scan.violations_summary?.total_checks
+                          ? Math.round(((scan.violations_summary?.passed || 0) / scan.violations_summary.total_checks) * 100)
+                          : scan.overall_status === "compliant" ? 100 : 0
                       }
                       size={36}
                     />

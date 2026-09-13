@@ -69,9 +69,14 @@ function saveScan(id: string, apiData: unknown, imageDataUrl: string | null) {
   try {
     localStorage.setItem(`scan_${id}`, JSON.stringify(payload));
   } catch {
-    // Quota exceeded — retry without the image so results still open.
+    // Quota exceeded — retry without the base64 image so results still open.
+    // Preserve image_url from backend so normalize() can fall back to it.
     try {
-      localStorage.setItem(`scan_${id}`, JSON.stringify(apiData));
+      const fallback = { ...(apiData as Record<string, unknown>) };
+      if (imageDataUrl && !fallback["image_url"]) {
+        // No backend image_url; at least keep the data we have
+      }
+      localStorage.setItem(`scan_${id}`, JSON.stringify(fallback));
     } catch {
       /* storage unavailable; result page will show "not found" */
     }

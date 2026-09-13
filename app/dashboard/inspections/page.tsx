@@ -42,7 +42,7 @@ interface Scan {
   _id: string;
   extracted_fields?: { commodity_name?: string; manufacturer_name?: string };
   overall_status: "compliant" | "non-compliant";
-  violations_summary?: { critical?: number; major?: number; minor?: number; needs_review?: number };
+  violations_summary?: { critical?: number; major?: number; minor?: number; needs_review?: number; total_checks?: number; passed?: number };
   location?: { lat: number; lng: number } | null;
   violations: Violation[];
   scanned_at: string;
@@ -300,13 +300,15 @@ export default function InspectionsPage() {
                       <div className="flex-shrink-0">
                         <GradeBadge
                           percent={
-                            validViolations.length === 0
-                              ? 100
-                              : Math.round(
-                                  ((validViolations.length - pendingCount) /
-                                    Math.max(validViolations.length, 1)) *
-                                    100
-                                )
+                            scan.violations_summary?.total_checks
+                              ? Math.round(((scan.violations_summary?.passed || 0) / scan.violations_summary.total_checks) * 100)
+                              : validViolations.length === 0
+                                ? 100
+                                : Math.round(
+                                    ((validViolations.length - pendingCount) /
+                                      Math.max(validViolations.length, 1)) *
+                                      100
+                                  )
                           }
                           size={40}
                         />

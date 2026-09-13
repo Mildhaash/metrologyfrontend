@@ -554,10 +554,7 @@ export default function ScanResultView({
                           border: `2px solid ${
                             c.status === "pass" ? "#4ADE80" : getSeverityColor(c.severity).box
                           }`,
-                          boxShadow:
-                            c.status === "fail"
-                              ? `0 0 0 3px ${getSeverityColor(c.severity).bg}`
-                              : "none",
+                          boxShadow: "none",
                           zIndex: c.status === "fail" ? 3 : 2,
                         }}
                         title={`${c.label} — ${c.status === "pass" ? "compliant" : c.message || "violation"}`}

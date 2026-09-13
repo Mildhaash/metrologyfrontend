@@ -46,7 +46,7 @@ cp .env.example .env.local
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `NEXT_PUBLIC_API_URL` | Backend API base URL | `http://localhost:8000/api` |
+| `NEXT_PUBLIC_API_URL` | Backend API base URL | `http://localhost:8000/api` (dev) / `/api` (prod via rewrites) |
 
 ### Development
 
@@ -82,7 +82,7 @@ frontend/
 ├── lib/
 │   └── api.ts              # API fetch helper with auth token
 ├── public/                 # Static assets
-├── next.config.mjs
+├── next.config.mjs         # Vercel rewrites (API proxy to backend)
 ├── tailwind.config.ts
 ├── tsconfig.json
 └── package.json
@@ -94,9 +94,20 @@ frontend/
 
 1. Push this folder to a GitHub repository
 2. Import the repository in [Vercel](https://vercel.com)
-3. Set the environment variable:
-   - `NEXT_PUBLIC_API_URL` → `https://your-backend.up.railway.app/api`
-4. Deploy
+3. The frontend uses **Vercel rewrites** to proxy `/api/*` requests to the Railway backend — no CORS issues, backend URL hidden from the browser.
+4. Environment variables:
+   - **Development** (`frontend/.env.local`): `NEXT_PUBLIC_API_URL=http://localhost:8000/api`
+   - **Production** (`frontend/.env.production`): `NEXT_PUBLIC_API_URL=/api` (already configured)
+5. Update the backend URL in `next.config.mjs` rewrites if your backend URL changes
+6. Deploy
+
+### How the API proxy works
+
+```
+Browser → Vercel (/api/scan/upload) → rewrite → Railway backend (https://metrologybackend-production.up.railway.app/api/scan/upload)
+```
+
+The `NEXT_PUBLIC_API_URL=/api` in `.env.production` makes all fetch calls relative to the Vercel domain. Next.js `rewrites` in `next.config.mjs` proxy these to the actual Railway backend server-side.
 
 ## License
 
